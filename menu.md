@@ -1,5 +1,5 @@
 # Brain Menu
 
-- [Hubs](hubs/)
+- [Hubs](hubs/index.md)
 - [Scripts](scripts/)
 - [Backups](backups/)
