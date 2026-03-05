@@ -14,7 +14,8 @@ if ([string]::IsNullOrWhiteSpace($parentDir)) {
 # If both are default, use $defaultParent directly
 if ($parentDir -eq $defaultParent -and $brainName -eq 'Brain') {
   $TargetDir = $defaultParent
-} else {
+}
+else {
   $TargetDir = Join-Path $parentDir $brainName
 }
 if (-not (Test-Path $TargetDir)) {
