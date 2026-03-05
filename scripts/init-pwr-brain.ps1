@@ -1,7 +1,10 @@
 # Interactive PKM brain initializer
 Write-Host "Welcome to the pwr-brain initializer!"
 $defaultParent = Join-Path $env:USERPROFILE 'Brain'
-$brainName = 'Brain'
+$brainName = Read-Host "Enter a name for your new brain (folder name, leave blank for 'Brain')"
+if ([string]::IsNullOrWhiteSpace($brainName)) {
+  $brainName = 'Brain'
+}
 $parentDir = Read-Host "Enter the parent directory where the new brain should be created (leave blank for default: $defaultParent)"
 if ([string]::IsNullOrWhiteSpace($parentDir)) {
   $TargetDir = $defaultParent
@@ -9,18 +12,16 @@ if ([string]::IsNullOrWhiteSpace($parentDir)) {
     New-Item -ItemType Directory -Path $TargetDir | Out-Null
   }
 }
-else {
-  $TargetDir = Join-Path $parentDir $brainName
+$TargetDir = Join-Path $parentDir $brainName
 }
-if (Test-Path $TargetDir) {
-  $overwrite = Read-Host "Directory already exists. Overwrite? (y/n)"
-  if ($overwrite -ne 'y') {
-    Write-Host "Aborted."
-    exit 1
-  }
-  Remove-Item $TargetDir -Recurse -Force
+if (-not (Test-Path $TargetDir)) {
+  New-Item -ItemType Directory -Path $TargetDir | Out-Null
 }
-New-Item -ItemType Directory -Path $TargetDir | Out-Null
+$TargetDir = Join-Path $parentDir $brainName
+}
+if (-not (Test-Path $TargetDir)) {
+  New-Item -ItemType Directory -Path $TargetDir | Out-Null
+}
 $root = Resolve-Path $PSScriptRoot
 Copy-Item -Path (Join-Path $root '..' 'menu.md') -Destination $TargetDir -Force
 Copy-Item -Path (Join-Path $root '..' '.gitignore') -Destination $TargetDir -Force
