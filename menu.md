@@ -3,5 +3,5 @@
 - [Hubs](hubs/index.md)
 
 # Hub Files
+- [example/example.md](hubs/example/example.md)
 
-- [ers/rocket/Github-pwr/pwr-brain/hubs/example/example.md](C:/Users/rocket/Github-pwr/pwr-brain/hubs/example/example.md)

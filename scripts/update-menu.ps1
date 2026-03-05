@@ -12,7 +12,9 @@ $mdFiles = Get-ChildItem -Path $hubsPath -Recurse -Filter *.md | Where-Object { 
 # Build new hub file links
 $hubLinks = "# Hub Files`n"
 foreach ($file in $mdFiles) {
-  $relativePath = $file.FullName.Replace((Resolve-Path .).Path + '\\', '').Replace('\', '/')
+  # Get the relative path from the current directory
+  $relativePath = Join-Path -Path $hubsPath -ChildPath $file.FullName.Substring((Resolve-Path $hubsPath).Path.Length + 1)
+  $relativePath = $relativePath -replace '\\', '/'
   $displayPath = $relativePath.Substring($hubsPath.Length + 1)
   $hubLinks += "- [$displayPath]($relativePath)`n"
 }
