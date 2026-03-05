@@ -6,14 +6,16 @@ if ([string]::IsNullOrWhiteSpace($brainName)) {
   Write-Host "Aborted: No name provided."
   exit 1
 }
-$parentDir = Read-Host "Enter the parent directory where the new brain should be created (leave blank for current directory)"
+$parentDir = Read-Host "Enter the parent directory where the new brain should be created (leave blank for default: $defaultParent)"
 if ([string]::IsNullOrWhiteSpace($parentDir)) {
-  $parentDir = $defaultParent
-  if (-not (Test-Path $parentDir)) {
-    New-Item -ItemType Directory -Path $parentDir | Out-Null
+  $TargetDir = $defaultParent
+  if (-not (Test-Path $TargetDir)) {
+    New-Item -ItemType Directory -Path $TargetDir | Out-Null
   }
 }
-$TargetDir = Join-Path $parentDir $brainName
+else {
+  $TargetDir = Join-Path $parentDir $brainName
+}
 if (Test-Path $TargetDir) {
   $overwrite = Read-Host "Directory already exists. Overwrite? (y/n)"
   if ($overwrite -ne 'y') {
