@@ -1,9 +1,9 @@
-
 # Justfile for running PowerShell scripts in the repo
 
 set shell := ["pwsh", "-c"]
 
-# Usage: just <recipe>
+default:
+    @just --list
 
 autosave:
     scripts/autosave.ps1
