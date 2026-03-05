@@ -22,7 +22,8 @@ foreach ($file in $files) {
     $out = $iv + $enc
 
     # Get relative path from hubs
-    $relativePath = $file.FullName.Substring($hubsPath.Length).TrimStart('\\', '/')
+    $relativePath = $file.FullName.Substring($hubsPath.Length)
+    $relativePath = $relativePath -replace '^[\\/]+' , ''  # Remove leading slashes/backslashes
     $encPath = [System.IO.Path]::ChangeExtension($relativePath, '.enc')
     $outFile = Join-Path $backupPath $encPath
 
