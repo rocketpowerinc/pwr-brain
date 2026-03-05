@@ -10,7 +10,13 @@ $parentDir = Read-Host "Enter the parent directory where the new brain should be
 if ([string]::IsNullOrWhiteSpace($parentDir)) {
   $parentDir = $defaultParent
 }
-$TargetDir = Join-Path $parentDir $brainName
+
+# If both are default, use $defaultParent directly
+if ($parentDir -eq $defaultParent -and $brainName -eq 'Brain') {
+  $TargetDir = $defaultParent
+} else {
+  $TargetDir = Join-Path $parentDir $brainName
+}
 if (-not (Test-Path $TargetDir)) {
   New-Item -ItemType Directory -Path $TargetDir | Out-Null
 }
