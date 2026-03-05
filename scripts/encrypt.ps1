@@ -17,9 +17,9 @@ Write-Host "Zipped $hubsPath -> $zipFile"
 $Password = Read-Host -AsSecureString "Enter encryption password"
 $plain = ConvertFrom-SecureString $Password -AsPlainText
 
-# Encrypt the zip file using OpenSSL AES-256
+# Encrypt the zip file using OpenSSL AES-256 with PBKDF2
 # Requires OpenSSL installed and in PATH
-$opensslCmd = "openssl enc -aes-256-cbc -salt -in `"$zipFile`" -out `"$encFile`" -pass pass:$plain"
-Write-Host "Encrypting $zipFile -> $encFile using OpenSSL..."
+$opensslCmd = "openssl enc -aes-256-cbc -salt -pbkdf2 -in `"$zipFile`" -out `"$encFile`" -pass pass:$plain"
+Write-Host "Encrypting $zipFile -> $encFile using OpenSSL with PBKDF2..."
 Invoke-Expression $opensslCmd
 Write-Host "Encryption complete."
