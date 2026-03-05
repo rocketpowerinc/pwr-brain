@@ -6,19 +6,11 @@ if ([string]::IsNullOrWhiteSpace($brainName)) {
   $brainName = 'Brain'
 }
 $parentDir = Read-Host "Enter the parent directory where the new brain should be created (leave blank for default: $defaultParent)"
+
 if ([string]::IsNullOrWhiteSpace($parentDir)) {
-  $TargetDir = $defaultParent
-  if (-not (Test-Path $TargetDir)) {
-    New-Item -ItemType Directory -Path $TargetDir | Out-Null
-  }
+  $parentDir = $defaultParent
 }
 $TargetDir = Join-Path $parentDir $brainName
-}
-if (-not (Test-Path $TargetDir)) {
-  New-Item -ItemType Directory -Path $TargetDir | Out-Null
-}
-$TargetDir = Join-Path $parentDir $brainName
-}
 if (-not (Test-Path $TargetDir)) {
   New-Item -ItemType Directory -Path $TargetDir | Out-Null
 }
