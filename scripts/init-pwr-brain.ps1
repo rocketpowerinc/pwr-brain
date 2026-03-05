@@ -18,8 +18,23 @@ if ($parentDir -eq $defaultParent -and $brainName -eq 'Brain') {
 else {
   $TargetDir = Join-Path $parentDir $brainName
 }
-if (-not (Test-Path $TargetDir)) {
-  New-Item -ItemType Directory -Path $TargetDir | Out-Null
+if (Test-Path $TargetDir) {
+  if ($TargetDir -eq $defaultParent) {
+    $overwrite = Read-Host "The default Brain path '$TargetDir' already exists. Overwrite? (Y/n)"
+    if ($overwrite -eq '' -or $overwrite -eq 'Y' -or $overwrite -eq 'y') {
+      Remove-Item $TargetDir -Recurse -Force
+      New-Item -ItemType Directory -Path $TargetDir | Out-Null
+    }
+    else {
+      Write-Host "Aborted."
+      exit 1
+    }
+  }
+}
+else {
+  if (-not (Test-Path $TargetDir)) {
+    New-Item -ItemType Directory -Path $TargetDir | Out-Null
+  }
 }
 $root = Resolve-Path $PSScriptRoot
 Copy-Item -Path (Join-Path $root '..' 'menu.md') -Destination $TargetDir -Force
