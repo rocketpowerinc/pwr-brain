@@ -1,10 +1,15 @@
 
 # Zip the hubs folder and encrypt the zip file using OpenSSL AES-256
 
+
 $hubsPath = Join-Path $PSScriptRoot '..' | Join-Path -ChildPath 'hubs'
 $backupPath = Join-Path $PSScriptRoot '..' | Join-Path -ChildPath 'backups'
-$zipFile = Join-Path $backupPath 'hubs.zip'
-$encFile = Join-Path $backupPath 'hubs.zip.enc'
+# Get current date and time for file naming
+$date = Get-Date -Format 'yyyy-MM-dd'
+$time = Get-Date -Format 'hhmmtt'
+$zipBase = "hubs-$date-$time.zip"
+$zipFile = Join-Path $backupPath $zipBase
+$encFile = Join-Path $backupPath ("$zipBase.enc")
 
 # Create zip archive of hubs folder
 if (Test-Path $zipFile) {
