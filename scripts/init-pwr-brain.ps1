@@ -29,5 +29,5 @@ Copy-Item -Path (Join-Path $root '..' 'scripts') -Destination $TargetDir -Recurs
 if (-not (Test-Path (Join-Path $TargetDir 'backups'))) {
   New-Item -ItemType Directory -Path (Join-Path $TargetDir 'backups') | Out-Null
 }
-Copy-Item -Path (Join-Path $root '..' 'justfile.template') -Destination (Join-Path $TargetDir 'justfile') -Force
+Copy-Item -Path (Join-Path $root '..' 'justfile') -Destination (Join-Path $TargetDir 'justfile') -Force
 Write-Host "pwr-brain initialized at $TargetDir"
