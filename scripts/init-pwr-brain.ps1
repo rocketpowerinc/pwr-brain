@@ -1,6 +1,6 @@
 # Interactive PKM brain initializer
 Write-Host "Welcome to the pwr-brain initializer!"
-$defaultParent = Get-Location
+$defaultParent = Join-Path $env:USERPROFILE 'Brain'
 $brainName = Read-Host "Enter a name for your new brain (folder name)"
 if ([string]::IsNullOrWhiteSpace($brainName)) {
   Write-Host "Aborted: No name provided."
@@ -9,6 +9,9 @@ if ([string]::IsNullOrWhiteSpace($brainName)) {
 $parentDir = Read-Host "Enter the parent directory where the new brain should be created (leave blank for current directory)"
 if ([string]::IsNullOrWhiteSpace($parentDir)) {
   $parentDir = $defaultParent
+  if (-not (Test-Path $parentDir)) {
+    New-Item -ItemType Directory -Path $parentDir | Out-Null
+  }
 }
 $TargetDir = Join-Path $parentDir $brainName
 if (Test-Path $TargetDir) {
