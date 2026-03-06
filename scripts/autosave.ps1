@@ -1,5 +1,5 @@
 # Autosave: commit all changes
-$timestamp = Get-Date -Format 'yyyy-MM-dd_HH-mm-ss'
+$timestamp = (Get-Date -Format 'yyyy-MM-dd-hhmmtt')
 Push-Location (Join-Path $PSScriptRoot '..')
 git add .
 git commit -m "Autosave: $timestamp"
